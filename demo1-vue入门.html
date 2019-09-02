@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue入门-简单环境</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+
+		<div id="app">
+			{{ message }}
+		</div>
+
+		<div id="app-2">
+			<!-- v-bind:绑定属性事件 -->
+			<span v-bind:title="message">
+				鼠标悬停几秒钟查看此处动态绑定的提示信息！
+			</span>
+		</div>
+
+		<!-- 判断条件 -->
+		<div id="app-3">
+			<!-- v-if  true显示 false不显示 -->
+			<p v-if="canbeseen">现在你看到我了</p>
+		</div>
+
+		<!-- 循环 绑定数组的数据来渲染一个项目列表 -->
+		<div id="app-4">
+			<ol>
+				<li v-for="x in todos">
+					{{x}} ------ {{ x.text }}
+				</li>
+			</ol>
+		</div>
+
+		<!-- 处理用户输入 -->
+		<div id="app-5">
+			<p>{{ message }}</p>
+			<!-- v-on:click 定义事件 -->
+			<button v-on:click="reverseMessage">反转消息</button>
+		</div>
+
+		<!-- v-model 表单输入和应用状态 双向绑定 -->
+		<div id="app-6">
+			<p>{{ message }}</p>
+			<input v-model="message">
+			<input type="checkbox" v-model="message">
+			<br>
+			A:<input type="radio" name="x" v-model="message" value="A" />
+			B:<input type="radio" name="x" v-model="sex" value="B" />
+			C:<input type="radio" name="x" v-model="sex" value="C" />
+		</div>
+		
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app', // element --> "#app"
+		data: {
+			message: 'yuanxin'
+		}
+	})
+
+	var app2 = new Vue({
+		el: '#app-2',
+		data: {
+			message: '页面加载于 ' + new Date().toLocaleString()
+		}
+	})
+
+	var app3 = new Vue({
+		el: '#app-3',
+		data: {
+			canbeseen: true
+		}
+	})
+
+	var app4 = new Vue({
+		el: '#app-4',
+		data: {
+			todos: [{
+					text: '学习 JavaScript'
+				},
+				{
+					text: '学习 Vue'
+				},
+				{
+					text: '整个牛项目'
+				}
+			]
+		}
+	})
+
+	var app5 = new Vue({
+		el: '#app-5',
+		data: {
+			message: 'Hello Vue.js!'
+		},
+		methods: {
+			reverseMessage: function() {
+				this.message = this.message.split('').reverse().join('');
+			}
+		}
+	})
+
+	var app6 = new Vue({
+		el: '#app-6',
+		data: {
+			message: 'Hello Vue!',
+			check: true,
+			sex: "B"
+		}
+	})
+</script>
