@@ -8,7 +8,7 @@
 	<body>
 
 		<div id="app">
-			{{ message }}
+			{{ message - 10 }}
 		</div>
 
 		<div id="app-2">
@@ -47,17 +47,41 @@
 			<input type="checkbox" v-model="message">
 			<br>
 			A:<input type="radio" name="x" v-model="message" value="A" />
-			B:<input type="radio" name="x" v-model="sex" value="B" />
+			B:<input type="radio" name="x" v-model="message" value="B" />
 			C:<input type="radio" name="x" v-model="sex" value="C" />
 		</div>
-		
+
+		<br>
+		<hr>
+		<p>计算属性computed</p>
+		<div id="example">
+			<input type="text" v-model="message" />
+			<p>Original message:"{{message}}"</p>
+			<p>Computed reversed message:"{{reverseMessage}}"</p>
+		</div>
+
 	</body>
 </html>
 <script type="text/javascript">
+	var vm = new Vue({
+		el: '#example',
+		data: {
+			message: 1 // + 时当字符串处理
+		},
+		computed: {
+			// 计算属性的 getter
+			reverseMessage: function() {
+				// `this` 指向 vm 实例
+				// return this.message.split('').reverse().join('');
+				return parseInt(this.message) + 1;
+			}
+		}
+	});
+
 	var app = new Vue({
 		el: '#app', // element --> "#app"
 		data: {
-			message: 'yuanxin'
+			message: '50'
 		}
 	})
 

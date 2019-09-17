@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计算属性computed</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		作业：实现随意切换币种得出结果
+		<div id="app">
+			<h2>计算汇率</h2>
+			<p>
+				请选择币种：
+				<select style="width: 200px;">
+					<option value ="message" selected="selected">人民币</option>
+					<option value ="message">日元</option>
+					<option value ="message">美元</option>
+					<option value ="message">欧元</option>
+				</select>
+				
+				输入币值：<input v-model="message" />
+			</p>
+			
+			美元：{{ message * 0.1415 }}；
+			<br>
+			日元：{{ message * 15.2604 }};
+			<br>
+			欧元：{{ message * 0.1278}}
+		</div>
+		
+		<br>
+		<hr>
+		<p>1.计算属性computed</p>
+		<div id="example">
+			<p>
+				请选择币种：
+				<select style="width: 200px;" v-model="select01">
+					<option value ="RMB" selected="selected">人民币</option>
+					<option value ="Yen">日元</option>
+					<option value ="USD">美元</option>
+					<option value ="Euro">欧元</option>
+				</select>
+				
+				输入币值：<input v-model="message" />
+			</p>
+			<p>人民币:{{RMB}}</p>
+			<p>日元:{{Yen}}</p>
+			<p>美元:{{USD}}</p>
+			<p>欧元:{{Euro}}</p>
+			
+		</div>
+		
+		<br>
+		<hr>
+		<p>2.计算属性computed</p>
+		<div id="example2">
+			<p>
+				请选择币种：
+				<select style="width: 200px;" v-model="select02">
+					<option value ="RMB" selected="selected">人民币</option>
+					<option value ="Yen">日元</option>
+					<option value ="USD">美元</option>
+					<option value ="Euro">欧元</option>
+				</select>
+				
+				输入币值：<input v-model="message" />
+			</p>
+			<p>人民币:{{showSomthing("RMB")}}</p>
+			<p>日元:{{showSomthing("Yen")}}</p>
+			<p>美元:"{{showSomthing("USD")}}</p>
+			<p>欧元:{{showSomthing("Euro")}}</p>
+			
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: '1'
+		},
+
+	});
+	var vm = new Vue({
+		el: '#example',
+		data: {
+			message: 0 , // + 时当字符串处理
+			select01: "USD"
+		},
+		computed: {
+			// 计算属性的 getter
+			Yen: function() {
+				// `this` 指向 vm 实例
+				// return this.message.split('').reverse().join('');
+				return parseFloat(this.yuan)*15.2604;
+			},
+			USD: function() {
+				return parseFloat(this.yuan)*0.1415;
+			},
+			Euro: function() {
+				return parseFloat(this.yuan)*0.1278;
+			},
+			RMB: function() {
+				return parseFloat(this.yuan)*1;
+			},
+			
+			yuan: function(){
+				var kind = this.select01;
+				var stander = this.message;
+				
+				switch(kind){
+					case "USD":{
+						return stander / 0.1415;
+					}
+					case "Yen":{
+						return stander / 15.2604;
+					}
+					case "Euro":{
+						return stander / 0.1278;
+					}
+					case "RMB":{
+						return stander / 1;
+					}
+					default:{
+						return 0;
+					}
+				}
+			}
+		},
+	
+	});
+	
+	var vm2 = new Vue({
+		el: '#example2',
+		data: {
+			message: 0 , // + 时当字符串处理
+			select02: "USD"
+		},
+	
+		methods:{
+			showSomthing:function( xxx ){
+				var kind = this.select02;
+				var stander = this.message;
+				var rmbTrans = 0;
+				switch(kind){
+					case "USD":{
+						rmbTrans = stander / 0.1415; break;
+					}
+					case "Yen":{
+						rmbTrans = stander / 15.2604; break;
+					}
+					case "Euro":{
+						return stander / 0.1278; break;
+					}
+					case "RMB":{
+						rmbTrans = stander / 1; break;
+					}
+					default:{
+						rmbTrans = 0;  break;
+					}
+				}
+				
+				switch(xxx){
+					case "USD":{
+						return parseFloat(this.rmbTrans)*0.1415;
+					}
+					case "Yen":{
+						return parseFloat(this.rmbTrans)*15.2604;
+					}
+					case "Euro":{
+						return parseFloat(this.rmbTrans)*0.1278;
+					}
+					case "RMB":{
+						return parseFloat(this.rmbTrans)*1;
+					}
+					default:{
+						rmbTrans = 0;
+					}
+				}
+			}
+		}
+	});
+</script>
