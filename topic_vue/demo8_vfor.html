@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-for专题</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<p>
+			v-for的参数
+		</p>
+		<ul id="example-2">
+			<li v-for="(item, index) in items">
+				{{ parentMessage }} - {{ index }} - {{ item.message }}
+			</li>
+		</ul>
+
+
+		<hr>
+
+		<p>
+			v-for参数传递给函数
+		</p>
+		<div id="app-5">
+			<p v-for="(item,index) in items" style="color: aqua;">
+				<button type="button" @click="doxx( item, index , $event )" v-bind:id="'button-' + index"> 删除{{index}} </button>
+			</p>
+		</div>
+
+		<hr>
+
+
+		<style type="text/css">
+			#homework {
+				width: 600px;
+				min-height: 500px;
+				text-align: center;
+				position: relative;
+				left: 50%;
+				border: 16px solid #00FFFF;
+				border-style: groove;
+				/* 边框的样式 */
+				margin-left: -300px;
+				padding: 5px;
+				overflow-x: hidden;
+			}
+
+			#newstudent {
+				width: 100%;
+				padding: 12px 0;
+
+
+			}
+
+			#newstudent input {
+				width: 200px;
+				margin: 12px 0;
+			}
+
+			#newstudent select {
+				width: 200px;
+				margin: 12px 0;
+			}
+
+
+			.table-container {
+				max-height: 320px;
+				width: 618px;
+				overflow-y: scroll;
+
+			}
+
+			table {
+				/* border: 1px solid #0000FF; */
+				/* border-style: groove; */
+				position: relative;
+				width: 100%;
+			}
+
+			table tr {
+				height: 60px;
+
+			}
+
+			table th {
+				width: 20%;
+				/* border-bottom: 4px solid #008000; */
+			}
+
+			table td {
+				width: 20%;
+				/* border-bottom: 1px solid red; */
+			}
+
+			table input {
+				height: 30px;
+				width: 45px;
+				min-width: 45px;
+				border-bottom: 4px solid #008000;
+				border-radius: 50%;
+				/* background-image: -webkit-linear-gradient(right,#0000ff 0%, #00ffff 60%, #3effff 90%); 
+				background-image: -ms-linear-gradient(top right,#0000ff 0%, #00ffff 50%, #3effff 90%); */
+				background: #00B7FF;
+			}
+		</style>
+
+
+		<div id="homework">
+			<p style="color: red;">
+				作业: 编写一个编辑表格, 实现增删功能
+			</p>
+			<div id="newstudent">
+				<input type="text" name="name" v-model="newStudent.name" />
+				<br>
+				<input type="number" name="age" v-model="newStudent.age" />
+				<br>
+				<select v-model="newStudent.sex">
+					<option value="male">男</option>
+					<option value="female">女</option>
+					<option value="x">未知</option>
+				</select>
+				<br>
+				<input type="button" value="新增" @click="addNewStudent" />
+
+			</div>
+			<table style="border-bottom: 2px solid #0099E5; border-top:2px solid #0099E5 ; font-size: 24px;">
+				<tr>
+					<th>序号</th>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>操作</th>
+				</tr>
+			</table>
+
+			<div class="table-container">
+				<table>
+
+
+					<tr v-for="(item, index)  in  students">
+						<td> {{index+1}} </td>
+						<td>{{ item.name  }}</td>
+						<td>{{ item.age}}</td>
+						<td v-if="item.sex=='male'">男</td>
+						<td v-if="item.sex=='female'">女</td>
+						<td v-if="item.sex=='x'">未知</td>
+						<td>
+							<input type="button" value="删除" />
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</body>
+</html>
+
+<script type="text/javascript">
+	var tableEdit = new Vue({
+		el: "#homework",
+		data: {
+			newStudent: {
+				name: '',
+				age: '',
+				sex: 'x'
+			},
+			students: [{
+					name: '小明',
+					age: '12',
+					sex: 'male'
+				},
+				{
+					name: '张飞',
+					age: '34',
+					sex: 'male'
+				},
+				{
+					name: '碧螺',
+					age: '48',
+					sex: 'x'
+				},
+				{
+					name: '张飞',
+					age: '34',
+					sex: 'male'
+				},
+				{
+					name: '碧螺',
+					age: '48',
+					sex: 'x'
+				},
+				{
+					name: '张飞',
+					age: '34',
+					sex: 'male'
+				},
+				{
+					name: '碧螺',
+					age: '48',
+					sex: 'x'
+				}
+			]
+		},
+		methods: {
+			addNewStudent: function() {
+				//console.info(this.newStudent);
+				var newOne = this.newStudent;
+				if (!newOne.name || !newOne.age) {
+					alert("信息不完整");
+					return;
+				}
+				this.students.push(newOne);
+
+				this.newStudent = {
+					name: '',
+					age: '',
+					sex: 'x'
+				};
+			}
+		}
+	});
+</script>
+
+
+
+<script type="text/javascript">
+	var app5 = new Vue({
+		el: '#app-5',
+		data: {
+			items: [{
+				name: 'fang',
+				age: 34
+			}, {
+				name: 'liu',
+				age: 23
+			}]
+		},
+		methods: {
+			doxx: function(item, index, event) {
+				this.items.splice(index, 1); // !!!!你是猪!!!!
+			}
+		}
+	});
+
+
+	var example2 = new Vue({
+		el: '#example-2',
+		data: {
+			parentMessage: 'Parent',
+			items: [{
+					message: 'Foo'
+				},
+				{
+					message: 'Bar'
+				}
+			]
+		}
+	})
+</script>

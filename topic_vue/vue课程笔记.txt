@@ -1,0 +1,45 @@
+
+菜鸟教程地址
+https://www.runoob.com/vue2/vue-tutorial.html
+
+官方教程: 
+https://cn.vuejs.org/v2/guide/
+
+
+
+课程笔记: 
+1. vue.js的环境, 基本的语法结构
+
+2. v-if v-on v-for v-model
+
+
+
+
+
+
+20190915 ----- 课堂提问: 
+
+
+
+复习: 
+1. vue的基本语法结构
+2. v-if的使用 
+	
+	
+	
+	
+20190918 - 作业 - 查询/修改用户信息+照片 / node - express - mysql - 
+
+建表: 
+
+person表结构:
+
+id 
+name
+age
+tel
+addr
+desc
+exinfo
+tectype
+

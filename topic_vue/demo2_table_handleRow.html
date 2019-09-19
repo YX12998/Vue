@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>table的行操作</title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="external nofollow">
+		<style>
+			label{float:left;line-height: 34px;}
+  .panel-body{
+    margin:30px auto;
+  }
+ </style>
+	</head>
+	<body>
+		<!-- 这是我们的view -->
+		<div class="col-md-6">
+			<div class="panel panel-default" id="app">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-md-2 control-label">Name：</label>
+						<input type="text" class="col-md-9 form-control" v-model="newPerson.name" />
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Age：</label>
+						<input type="text" class="col-md-9 form-control" v-model="newPerson.age">
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Sex：</label>
+						<select class="col-md-9 form-control" v-model="newPerson.sex">
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="col-md-8"></label>
+						<button class="col-md-3" @click="createPerson">Create</button>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th class="text-center">Name</th>
+								<th class="text-center">Age</th>
+								<th class="text-center">Sex</th>
+								<th class="text-center">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(item , index) in people">
+								<td>{{ item.name }}</td>
+								<td>{{ item.age }}</td>
+								<td>{{ item.sex }}</td>
+								<td><button v-on:click="delPerson(index)">Delete</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.bootcss.com/vue/2.2.6/vue.js"></script>
+	<script>
+		//创建一个Vue实例或"ViewModel",它连接view与model
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				newPerson: {
+					name: '',
+					age: '',
+					sex: 'Male'
+				},
+				people: [{
+					name: 'Jack',
+					age: 30,
+					sex: 'Male'
+				}, {
+					name: 'Bill',
+					age: 26,
+					sex: 'Male'
+				}, {
+					name: 'Tracy',
+					age: 22,
+					sex: 'Female'
+				}, {
+					name: 'Chris',
+					age: 36,
+					sex: 'Male'
+				}]
+			},
+			methods: {
+				createPerson: function() {
+					this.people.push(this.newPerson);
+					// 添加完newPerson对象后，重置newPerson对象
+					this.newPerson = {
+						name: '',
+						age: '',
+						sex: 'Male'
+					}
+				},
+				delPerson: function(index) {
+					console.info(index);
+					// 删一个数组元素
+					this.people.splice(index, 1);
+				}
+			}
+		});
+	</script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title>vue入门-简单环境</title>
+	</head>
+	<body>
+		<div id="app">
+			{{ message-100 + 20 }}
+		</div>
+		<hr>
+		<div id="app-2">
+			<span v-bind:title="message">
+				鼠标悬停几秒钟查看此处动态绑定的提示信息！
+			</span>
+		</div>
+		<hr>
+		<!-- 判断条件 -->
+		<div id="app-3">
+			<p v-if="canbeseen">现在你看到我了</p>
+		</div>
+		<hr>
+		<!--循环-->
+		<div id="app-4">
+			<p v-for="x in todos" style="color: aqua;">
+				{{x}} ---------- {{ x.text}}
+			</p>
+		</div>
+		<hr>
+	
+		<!--v-model -双向绑定-->
+		<div id="app-6">
+			<p>{{ form1.message }}</p>
+			<input v-model="form1.message">
+			<input type="checkbox" v-model="form1.check" />
+			<br>
+			A<input type="radio" name="x" value="A" v-model="form1.SEX" />
+			B<input type="radio" name="x" value="B" v-model="form1.SEX" />
+			C<input type="radio" name="x" value="C" v-model="form1.SEX" />
+			<input type="button" name="" id="" value="" />
+		</div>
+		
+		
+		
+		
+			<!-- 处理用户的输入 -->
+		<div id="app-5">
+			<!--演示了v-for的用法和传参-->
+			<p v-for="(item,index) in items" style="color: aqua;">
+				<!-- <button type="button" @click="doxx(item, $event)" v-bind:id='index' > --{{index}}--  </button> -->
+				<button type="button" @click="doxx(items[index], $event)"  v-bind:id='index'> --{{index}}-- </button>
+			</p>
+			
+			
+			<!---两种绑定方式-->
+			<p>{{ message }}</p>
+			<input type="" name="" id="" v-bind:value="message" />
+			<br>
+			<input type="" name="" id="" v-model="message" />
+			<button @click="reverseMessage()">反转消息</button>
+		</div>
+		<hr>
+	</body>
+</html>
+
+<script type="text/javascript">
+	var app5 = new Vue({
+		el: '#app-5',
+		data: {
+			message: '0,1,2,3,4,5',
+			items: [{
+				name: 'fang',
+				age: 34
+			}, {
+				name: 'liu',
+				age: 23
+			}]
+		},
+		methods: {
+			doxx: function(a, event) {
+				console.info(a || 4444);
+				console.info(event.target.id);
+			},
+			reverseMessage: function() {
+				this.message = this.message.split('').reverse().join('');
+			}
+		}
+	});
+	
+	var app = new Vue({
+		el: '#app', // element --> "#app"
+		data: {
+			message: "4550"
+		}
+	});
+
+	var app6 = new Vue({
+		el: '#app-6',
+		data: {
+			form1: {
+				message: 'Hello Vue!',
+				check: true,
+				SEX: "B"
+			}
+		},
+		methods: {
+
+		}
+	});
+
+
+
+	
+	var app2 = new Vue({
+		el: '#app-2',
+		data: {
+			message: '页面加载于 ' + new Date().toLocaleString()
+		}
+	});
+
+	var app3 = new Vue({
+		el: '#app-3',
+		data: {
+			canbeseen: true
+		}
+	});
+
+	var app4 = new Vue({
+		el: '#app-4',
+		data: {
+			todos: [{
+					text: '学习 JavaScript'
+				},
+				{
+					text: '学习 Vue'
+				},
+				{
+					text: '整个牛项目'
+				}
+			]
+		}
+	});
+</script>

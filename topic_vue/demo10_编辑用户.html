@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>作业-编辑用户</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+		<script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/public/demo10.css" />
+
+	</head>
+
+	<body>
+		<div id="mianContent" class="mianContent">
+
+			<div id="vue01" class="vue01">
+				
+
+				<div id="form001" class="form001">
+					<div id="title01" class="title01">
+						{{currentPerson}}
+						<div class="searchDiv">
+							<input type="text" v-model="namePeace"  /> 
+							<input type="button" value="搜索"/>
+							
+							<div class="nameLike">
+								<p v-for="(item , index) in nameLikes">
+									{{item.name}}
+								</p>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="flexCon">
+						<div id="formcontrol_left" class="formcontrol_left">
+							<p>
+								姓名: <input type="text" v-model="currentPerson.name" />
+							</p>
+							<p>
+								年龄: <input type="number" v-model="currentPerson.age" />
+							</p>
+							<p>
+								电话: <input type="text" v-model="currentPerson.tel" />
+							</p>
+							<p>
+								地址: <input type="text" v-model="currentPerson.addr" />
+							</p>
+							<p>
+								描述: <input type="text" v-model="currentPerson.persondesc" />
+							</p>
+							<p>
+								备注: <input type="text" v-model="currentPerson.exinfo" />
+							</p>
+							<p>
+								技术类型:
+								java<input type="checkbox" value="java" v-model="currentPerson.tectype" />&nbsp;&nbsp;
+								js<input type="checkbox" value="js" v-model="currentPerson.tectype" />&nbsp;&nbsp;
+								php<input type="checkbox" value="php" v-model="currentPerson.tectype" />&nbsp;&nbsp;
+								c#<input type="checkbox" value="c#" v-model="currentPerson.tectype" />&nbsp;&nbsp;
+							</p>
+
+							<div class="faceCon">
+								<img v-if="currentPerson.imagepath" v-bind:src=" '/temp/'+ currentPerson.imagepath" />
+								<!-- <input type="file"   v-model="currentPerson.imagepath" id="facexxxxxxx"/> -->
+								<input type="file" id="facexxxxxxx" />
+							</div>
+
+						</div>
+
+						<div id="formcontrol_right" class="formcontrol_right">
+
+							<br><br>
+							<input v-if="currentPerson.id" type="button" @click="editPerson" value="编辑用户" />
+							<br><br>
+							<!-- <input type="button" @click="getSingleUser" value="测试-获取单个用户信息" /> -->
+							<input v-if="isCreatingPerson == false" type="button" @click="clearForm" value="新增用户" />
+							<input v-if="isCreatingPerson == true" type="button" @click="createPerson" value="确认提交" />
+							
+							
+							<br><br>
+							<!-- {{currentPerson}} -->
+						</div>
+
+					</div>
+
+					<div id="table001" class="table001">
+						<div>
+							<table class="table-inner">
+								<tr>
+									<th>序号</th>
+									<th>姓名</th>
+									<th>年龄</th>
+									<th>电话</th>
+									<th>地址</th>
+									<th>描述</th>
+									<th>备注</th>
+									<th>技术型</th>
+								</tr>
+								<tr  class="allperson-tr" v-for="(item, index ) in  allPerson" @click="selectOnePerson(item, index, $event )">
+									<td>{{ index + 1}}</td>
+									<td>{{ item.name}}</td>
+									<td>{{item.age}}</td>
+									<td>{{item.tel}}</td>
+									<td>{{item.addr}}</td>
+									<td>{{item.persondesc}}</td>
+									<td>{{item.exinfo}}</td>
+									<td>{{item.tectype}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+
+
+<script type="text/javascript" src="/public/demo10.js"></script>

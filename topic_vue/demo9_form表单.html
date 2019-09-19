@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>form表单</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+		<script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+		<style type="text/css">
+			body {
+				text-align: center;
+			}
+
+			#form01 {
+				width: 400px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="form01">
+			<form  enctype="multipart/form-data">
+				
+				<input type="text" name="text01" v-model="formData.text01" />
+				<p>
+					<input type="file" name="fang" v-model="formData.file01"  id="filexxxxxxxx"/>
+				</p>
+			<!-- 	<p>
+					<input type="submit" value="提交(表单方式)"  disabled="disabled"/>
+				</p> -->
+				<p>
+					<img src="/temp/none.jpg"  style="width: 140px; border: 4px solid #00FFFF; border-style: groove;">
+				</p>
+				<p>
+					<input type="button" value="vue方式提交" @click="updataForm" />
+				</p>
+			</form>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var form01 = new Vue({
+		el: "#form01",
+
+		data: {
+			formData: {
+				text01: "我是文本",
+				file01: null
+			}
+
+		},
+		methods: {
+			updataForm: function() {				
+				//console.info(this.formData);
+				var data2update = new window.FormData();
+				
+				for (var x in this.formData) {
+					data2update.append(x, this.formData[x])
+				}				
+				// 没有取到
+				console.info(data2update.get('file01'));
+				
+				
+				if( !this.formData.file01 ||  !data2update.get('file01') ){
+					alert("无照片, 不允许修改");
+					return;
+				}
+				// 问题出在这里, 上面没有正确的取到文件!!!!!!类型的问题 
+				// 妥协方案- 另外取文件, 从页面上取
+				data2update.append("faceImage",$('#filexxxxxxxx')[0].files[0]); 
+				/***原生的ajax非常不好用, 有没有***/
+				// var request = new XMLHttpRequest();
+				// request.open("POST", "/file_upload");				
+				// request.setRequestHeader("Content-Type", "multipart/form-data");				
+				// request.send(data2update);
+				
+				$.ajax({
+					type: 'POST',					
+					url: "/file_upload",
+					processData: false, // 使数据不做处理  // 必填!!!!
+					//contentType: "multipart/form-data;",
+					contentType: false, // 不要设置Content-Type请求头 // 必填!!!!
+					data: data2update,
+					success: function(res) {
+						console.info(res);
+					},
+					error: function(a, b) {
+						console.info(a);
+					}
+				});
+
+			}
+		}
+	});
+</script>

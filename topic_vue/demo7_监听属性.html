@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>监听属性</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="demo">{{ fullName }}</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#demo',
+		data: {
+			firstName: 'Foo',
+			lastName: 'Bar',
+			fullName: 'Foo Bar'
+		},
+		watch: {
+			firstName: function(val) {
+				this.fullName = val + ' ' + this.lastName
+			},
+			lastName: function(val) {
+				this.fullName = this.firstName + ' ' + val
+			}
+		}
+	});
+
+	// 对比一下计算属性 computed 的用法
+	// var vm = new Vue({
+	// 	el: '#demo',
+	// 	data: {
+	// 		firstName: 'Foo',
+	// 		lastName: 'Bar'
+	// 	},
+	// 	computed: {
+	// 		fullName: function() {
+	// 			return this.firstName + ' ' + this.lastName
+	// 		}
+	// 	}
+	// });
+	
+	
+</script>

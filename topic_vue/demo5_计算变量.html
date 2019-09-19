@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计算变量-父组件向子组件传递数据, 并且可以预处理</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				父组件绑定的数据: <input v-model="parentMsg">
+				<br>
+				<!--组件名child, 绑定组件自己的message属性(props: ['message']), 但是指向父组件的parentMsg数据
+				也可以用 v-bind 动态绑定 props 的值到父组件的数据中。每当父组件的数据变化时，该变化也会传导给子组件：
+				-->
+				子组件绑定的数据(被预处理, +1):
+				<child v-bind:message="parentMsg">
+
+					<!-- <span>{{ parseInt(message)+1 || 0 }}</span> -->
+
+				</child>
+
+			</div>
+		</div>
+
+		<hr>
+		<div id="app2">
+			<ol>
+				<todo-item v-for="item in sites" v-bind:todo="item"></todo-item>
+			</ol>
+		</div>
+
+		<br>
+		<br>
+		<br>
+		<hr>
+		<div class="" id="trans">
+			<!-- <div id="newVue">
+				
+			</div> -->
+			<p>课堂练习 - 计算汇率 </p>
+			<p style="color: red;">作业: 实现随意切换币种, 得出正确的换算结果!!!!!</p>
+			<p>
+				请选择币种:
+				<select style="width: 120px;">
+					<option value="RMB" selected="selected">人民币</option>
+					<option value="RMB">日元</option>
+					<option value="RMB">美元</option>
+					<option value="RMB">欧元</option>
+				</select>
+				输入币值: <input type="text" name="origMoney" v-model="RMB" />
+			</p>
+			<p>
+				日元: <span>{{RMB / 0.06547}}</span>
+				<br>
+				美元: <span>{{ RMB/ 7.0754}}</span>
+				<br>
+				欧元: <span>{{ RMB/ 7.8346 }}</span>
+				<br>
+				人民币: <span>{{ RMB/ 1 }}</span>
+			</p>
+		</div>
+
+
+		<br><br>
+		<hr>
+		<p>计算属性的computed</p>
+		p style="color: red;">作业2: 实现随意切换币种, 得出正确的换算结果!!!!! - 使用绑定函数 </p>
+		<div id="example">
+			请选择币种:
+			<select v-model="select001" style="width: 120px;" id="selectFang" >
+				<option value="RMB" selected="selected">人民币</option>
+				<option value="Yen">日元</option>
+				<option value="USD">美元</option>
+				<option value="Euro">欧元</option>
+			</select>
+			<input type="text" v-model="stransStander" />
+			<p>人民币: "{{ showMoney('RMB') }}"</p>
+			<p>日元: "{{ showMoney('Yen') }}"</p>
+			<p>美元: "{{ showMoney('USD') }}"</p>
+			<p>欧元: "{{ showMoney('Euro') }}"</p>
+			
+			
+			<p>绑定函数的返回值~ {{ showSomthing() }}</p>
+		</div>
+
+	</body>
+</html>
+
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#example',
+		data: {
+			stransStander: 0,
+			select001: "RMB"
+		},
+		computed: {
+			Yen: function() {
+				return parseFloat(this.fang) / 0.06547
+			},
+			USD: function() {
+				return parseFloat(this.fang) / 7.0754
+			},
+			Euro: function() {
+				return parseFloat(this.fang) / 7.8346
+			},
+			RMB: function() {
+				return parseFloat(this.fang)/1
+			},
+			
+			fang: function(){
+				
+				var kind = this.select001; 
+				var sttander = this.stransStander; 
+				
+				switch( kind ){
+					case "USD": {
+						return  sttander *　7.0754;
+					}
+					
+					case "Yen": {
+						return sttander * 0.06547;
+					}
+					
+					case "Euro": {
+						return sttander * 7.8346;
+					}
+					
+					case "RMB" : {
+						return sttander*1;
+					}
+					
+					default :{
+						return 0;
+					}
+				}
+				
+			}
+		},
+	
+		methods: {
+			showSomthing : function(){
+				return "嘿嘿";
+			},
+			showMoney: function( xxx ){
+				
+				var kind = this.select001; 
+				var sttander = this.stransStander; 
+				
+				console.info(sttander);
+				console.info(kind);
+				
+				var rmbTrans = 0;
+				switch( kind ){
+					case "USD": {
+						rmbTrans =  sttander *　7.0754;
+						break;
+					}
+					
+					case "Yen": {
+						rmbTrans =  sttander * 0.06547;
+						break;
+					}
+					
+					case "Euro": {
+						rmbTrans =  sttander * 7.8346;
+						break;
+					}
+					
+					case "RMB" : {
+						rmbTrans =  sttander*1;
+						break;
+					}
+					
+					default :{
+						rmbTrans =  0;
+						break;
+					}
+				}
+				
+				console.info(rmbTrans);
+				
+				if( xxx == 'Euro' ){
+					return parseFloat(rmbTrans) / 7.8346;
+				}
+				if( xxx == 'USD' ){
+					return parseFloat(rmbTrans) /7.0754;
+				}
+				if( xxx == 'Yen' ){
+					return parseFloat(rmbTrans) / 0.06547;
+				}
+				if( xxx == 'RMB'  ){
+					return parseFloat(rmbTrans) / 1;
+				}
+				
+			}
+			
+			
+			
+		}
+	});
+
+
+
+
+	var vue002 = new Vue({
+		el: "#trans",
+		data: {
+			RMB: 1
+			// (0.06547):  (7.0754)  (7.8346)
+		},
+		methods: {
+			func1: function() {}
+		}
+	});
+</script>
+
+
+<script>
+	// 注册
+	Vue.component('child', {
+		// 声明 props
+		props: ['message'],
+		// 同样也可以在 vm 实例中像 “this.message” 这样使用
+		//template: '<span>{{ parseInt(message)+1 || 0 }}</span>' // 注意, 引用数据之前进行了计算
+		template: '<span>{{ new Date(parseInt(message) ).toLocaleString()  }}</span>' // 注意, 引用数据之前进行了计算
+	})
+	// 创建根实例
+	var Vue0001 = new Vue({
+		el: '#app',
+		data: {
+			//parentMsg: 2
+			parentMsg: new Date().getTime()
+		}
+	});
+
+	setInterval(function() {
+		Vue0001.parentMsg = new Date().getTime();
+	}, 1000)
+
+	// 以下实例中将 v-bind 指令将 todo 传到每一个重复的组件中：
+	// 针对循环, 将数据分发给每一个组件
+	Vue.component('todo-item', {
+		props: ['todo'],
+		template: '<li>{{ todo.text }}</li>'
+	})
+
+
+
+	new Vue({
+		el: '#app2',
+		data: {
+			sites: [{
+					text: 'Runoob'
+				},
+				{
+					text: 'Google'
+				},
+				{
+					text: 'Taobao'
+				}
+			]
+		}
+	})
+</script>

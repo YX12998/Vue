@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表单的选项的处理</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+		<style type="text/css">
+			select option {
+				color: #006400;
+				font-size: 18px;
+				margin-top: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			
+			<form action="/" method="post">
+				<p>单个复选框：</p>
+				<input type="checkbox" value="Runoob" v-model="checked">			
+				<span >{{ checked }}</span>
+				
+				<p>多个复选框：(fang-多个复选框绑定统一数据模型)</p>
+				<input type="checkbox" value="Runoob" v-model="checkedNames">
+				<label for="runoob">Runoob</label>
+				<input type="checkbox" value="Google" v-model="checkedNames">
+				<label for="google">Google</label>
+				<input type="checkbox" value="Taobao" v-model="checkedNames">
+				<label for="taobao">taobao</label>
+				<br>
+				<span>选择的值为: {{ checkedNames }}</span>
+				
+				<br>
+				<br>
+				
+				<p>下拉框带多选,按住ctrl进行多选</p>
+				<select id="select001" name="select001" v-model="select001" size="5" style="width: 400px;" multiple="multiple">
+					<option value="北京" selected="selected">北京</option>
+					<option value="上海">上海</option>
+					<option value="广州">广州</option>
+					<option value="深圳">深圳</option>
+				</select>
+				<br>
+				<span>选择的值为: {{ select001 }}</span>
+				
+				
+				<p>radio相关</p>
+				<input type="radio" id="runoob" value="Runoob" v-model="picked">
+				<label for="runoob">Runoob</label>
+				<br>
+				<input type="radio" id="google" value="Google" v-model="picked">
+				<label for="google">Google</label>
+				<br>
+				<span>选中值为: {{ picked }}</span>
+				
+				
+				<p>text</p>
+				<input type="text" v-model="text01" />
+				
+				
+				<p style="color: red;">file?????????</p>
+				<input type="file" name="file01" v-model="file01" />
+				
+				
+				<p>文本域</p>
+				<textarea rows="" cols="" v-model="textarea01">
+					
+				</textarea>
+				<!-- <input type="image" v-model="image01" src="C:\fakepath\Hydrangeas.jpg" /> -->
+				<input type="submit" value="提交"/>
+			</form>
+			
+			
+			
+		</div>
+
+		<script>
+			var v1 = new Vue({
+				el: '#app',
+				data: {
+					checked: ['Runoob'],
+					checkedNames: [],
+
+					// 这里总会解析成数组,为什么?????????????? 
+					//  ['深圳'] 这个数据强制渲染, 优先级高于selected选项, 深圳被默认选中
+					// 如果没被数组中, 如'深圳', 则不会被渲染,与selected的值冲突
+					select001: ['深圳'],
+					picked: null,
+					text01: ['xxxxxxxx', '33333333'],
+					file01: null,
+					image01: null,
+					textarea01: null
+
+				}
+			})
+		</script>
+	</body>
+</html>

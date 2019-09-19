@@ -1,0 +1,137 @@
+body {
+	margin: 0;
+	padding: 0;
+
+}
+
+.mianContent {
+	width: 100%;
+	min-width: 980px;
+	min-height: 900px;
+	border: 1px solid #000000;
+}
+
+.vue01 {
+	position: relative;
+	width: 1200px;
+	height: 800px;
+	left: 50%;
+	margin-left: -600px;
+	background: #87CEEB;
+	padding: 2px 0px;
+}
+
+.title01 {
+	/* position: relative; */
+	margin: 8px 0px;
+	border-bottom: 12px solid #87CEEB;
+	width: 100%;
+	height: 100px;
+	background: #3E8F3E;
+}
+.searchDiv{
+	width: 300px;
+	min-height: 40px;
+	border: 4px solid #00FFFF;
+	border-radius: 12%;
+	position: absolute;
+	right: 10%;
+}
+
+.nameLike{
+	width: 100%;
+}
+
+
+
+
+
+
+
+.form001 {
+	margin-top: 8px;
+	width: 100%;
+	min-height: 300px;
+	background: #3E8F3E;
+	overflow-x: hidden;
+}
+
+.flexCon {
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+}
+
+.formcontrol_left {
+	flex: 4;
+	/*扩展比率0、收缩比率1和宽度居中的缩写形式*/
+	border: 1px solid #0000FF;
+}
+
+.formcontrol_left p{
+	margin-left: 60px;
+}
+
+.formcontrol_right {
+	flex: 2;
+	border: 1px solid #0000FF;
+}
+
+.faceCon {
+	position: absolute;
+	left: 35%;
+	top: 20%;
+	width: 200px;
+	height: 200px;
+	border: 2px solid #0000FF;
+	background: #00FFFF;
+}
+
+.faceCon img {
+	width: 100%;
+	height: 200px;
+}
+
+
+.table001 {
+	margin-top: 8px;
+	width: 101%;
+	min-height: 350px;
+	max-height: 440px;
+	border-top: 12px solid #87CEEB;
+	overflow-y: scroll;
+
+	background: #3E8F3E;
+}
+
+.table001 .table-head {
+	width: 100%;
+	border-bottom: 2px solid #0099E5;
+	font-size: 24px;
+	text-align: center;
+}
+
+.table-inner {
+	width: 100%;
+	border-bottom: 2px solid #0099E5;
+	text-align: center;
+}
+
+.table-inne tr {
+	width: 100%;
+}
+
+
+.selected {
+	background: greenyellow;
+}
+
+
+.allperson-tr:hover{
+	background: yellow;
+}
+
+.table-inner th{
+	border-bottom: 2px solid #761C19;
+}
+
