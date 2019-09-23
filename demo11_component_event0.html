@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title>组件的事件传递</title>
+	</head>
+	<body>
+
+		<div id="blog-posts-events-demo">
+			<div v-bind:style="{ fontSize: postFontSize + 'em' }">
+				<blog-post 
+					v-for="(item , index) in posts" 
+					v-bind:key="item.id" 
+					v-bind:post="item" 
+					v-bind:yyyy="searchText" 
+					v-on:yyyyyyyyyyyyyyyy="yy"
+					v-on:xxxxxxxxxxxx="up(index, $event)">
+					
+				</blog-post>
+			</div>
+		</div>
+
+	</body>
+</html>
+<script type="text/javascript">
+	Vue.component('blog-post', {
+		props: ['post' , "value", 'yyyy'],
+		template: `
+    <div class="blog-post" v-bind:style="{ fontSize: post.fontZ + 'em' }">
+      <h3>{{ post.title }}</h3>
+      <button  v-on:click="$emit('xxxxxxxxxxxx', { a : 120, c:'fang'} )">
+       按钮也1
+      </button>
+	  
+	  <input type="text"   v-bind:value="yyyy"   v-on:input="$emit('yyyyyyyyyyyyyyyy', $event.target.value)" />
+	   <input type="text"   v-bind:value="yyyy"   v-on:input="$emit('yyyyyyyyyyyyyyyy', $event.target.value)" />
+	    <input type="text"   v-bind:value="yyyy"   v-on:input="$emit('yyyyyyyyyyyyyyyy', $event.target.value)" />
+	  
+      <div v-html="post.content"></div>
+    </div>
+  `
+	});
+
+	new Vue({
+		el: '#blog-posts-events-demo',
+		data: {
+			posts: [{
+					title: "文章的标题",
+					content: "aslflsadfj;ljks<hr>a会撒娇法拉克睡觉了撒饭<br> 萨卡飞机啊老师jf;lajfl卡手机地方lsajf;垃圾啊师傅",
+					fontZ : 4
+				},
+				{
+					title: "假的就安分",
+					content: "aslflsadfj;ljks<hr>a会撒娇法拉克睡觉了撒饭<br> 萨卡飞机啊老师jf;lajfl卡手机地方lsajf;垃圾啊师傅",
+					fontZ : 1
+				}
+			],
+			postFontSize: 0.5,
+			
+			searchText: "方文韬"
+		},
+		methods: {
+			up: function(a , b ) {
+				// console.info(a);
+				console.info(b);
+				// this.postFontSize += a;
+				this.posts[a].title += "(正在审核)";
+				this.posts[a].fontZ += 0.5;
+				
+			},
+			
+			yy: function( a ){
+				console.info( a );
+				this.searchText = a;
+			}
+		}
+	})
+
+	// 课堂练习 - 子组件的按钮向父组件传递事件, 父组件改变该 子组件的标题名称, 标题名称 += "(正在审核)" -- 因为没有解决参数传递, 所以呢, 所有文章标题不区分谁是谁
+	// 增加要求: 点谁, 谁的标题就加上(正在审核)
+</script>
