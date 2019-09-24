@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>插槽</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="vue1">
+			<alert-box>
+				xxxxxxx
+				<input type="text">
+				<yy>
+					<xx></xx>
+				</yy>
+			</alert-box>
+		</div>
+
+	</body>
+</html>
+
+<script type="text/javascript">
+	// 插槽内可以包含任何模板代码，包括 HTML
+	Vue.component('alert-box', {
+		template: `
+	    <div style="background: #f66f6f;width:300px">
+	      <strong>错误!</strong>
+	      <slot></slot>
+		  <strong>xxxxxx</strong>
+	    </div>
+	  `
+	});
+
+	Vue.component("yy", {
+		template: '<div><span>我是一颗小小的石头</span><slot></slot></div>'
+	});
+
+	Vue.component("xx", {
+		template: '<div><span>深深地埋在泥土之中</span></div>'
+	});
+
+	new Vue({
+		el: "#vue1",
+		data: {
+
+		}
+	});
+</script>

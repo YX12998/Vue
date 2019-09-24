@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>组件</title>
+		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="components-demo">
+			<button-counter></button-counter>
+			<!-- <hr> -->
+			<!-- <blog-post y="My journey with Vue"></blog-post> -->
+			<hr>
+			<blog-post v-for="x in posts" v-bind:key="x.id" v-bind:y="x" ></blog-post>
+			<!-- <blog-post v-bind:y="posts[0]"></blog-post>
+			<blog-post v-bind:y="posts[1]"></blog-post>
+			<blog-post v-bind:y="posts[2]"></blog-post> -->
+		</div>
+
+	</body>
+</html>
+<script type="text/javascript">
+	// 组件是可复用的vue实例!!!
+	// 定义一个名为 button-counter 的新组件  全局组件
+	Vue.component('button-counter', {
+		// 组件里的 data 必须是函数, 直接给会暴露信息(控制台也会报错)
+		data: function() {
+			return {
+				count: 0
+			}
+		},
+		// 模板
+		template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+	});
+
+
+	// 全局组件的prop属性, 接收外部数据
+	Vue.component('blog-post', {
+		props: ['y'],
+		// 模板要包在一个节点(标签)里!!!
+		template: '<div><h3>{{ y.title }}</h3><span>{{y.content}}</span></div>'
+	})
+
+	new Vue({
+		el: '#components-demo',
+		data: {
+			posts: [{
+					id: 1,
+					title: 'id1',
+					content: '7897897898789'
+				},
+				{
+					id: 2,
+					title: 'id2',
+					content: '7897897898789'
+				},
+				{
+					id: 3,
+					title: 'id3',
+					content: '7897897898789'
+				}
+			]
+		}
+	})
+</script>
